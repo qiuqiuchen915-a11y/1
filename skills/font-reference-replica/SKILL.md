@@ -1,367 +1,519 @@
 ---
 name: font-reference-replica
 description: >
-  Reconstruct typography from a reference image with fidelity-first rules.
-  Prioritizes direct glyph reconstruction over approximate font substitution.
-  Use when the user asks to copy, reproduce, restore, replace, or generate text
-  that must match typography visible in a reference image, poster, logo, packaging,
-  UI, title card, or graphic.
-version: 1.0.0
+  Ultra-strict reference typography reconstruction skill. Rebuilds glyph structure
+  from reference imagery by analyzing skeletons, stroke topology, terminals, joins,
+  width/height ratios, local deformation, spacing, outlines, texture, and effects.
+  Use when the user requires exact or near-pixel reproduction of lettering and forbids
+  similar-font substitution.
+version: 2.0.0
 ---
 
 # $font-reference-replica
 
-## Mission
+## Core objective
 
-Reproduce the typography in a reference image as faithfully as the available evidence allows.
+Reconstruct the typography in the reference image with the highest fidelity technically possible.
 
-**Highest priority: visual identity of the reference glyphs.**
+This skill does **not** treat the reference as merely a "font style".
+It treats each visible character as a **forensic glyph specimen**.
 
-Do NOT treat “same font category” or “similar-looking font” as success.
+The workflow must recover and preserve:
 
-For text already visible in the reference, prefer **direct glyph reconstruction / tracing / extraction** over retyping with a substitute font.
+- glyph skeleton
+- stroke topology
+- stroke order impression
+- stroke width profile
+- stroke contrast
+- local thickening/thinning
+- terminals
+- hooks
+- corners
+- joins
+- bowls
+- counters
+- apertures
+- crossbars
+- overshoot
+- center of gravity
+- aspect ratio
+- local stretching/compression
+- slant
+- rotation
+- irregularity
+- handwritten deviations
+- optical corrections
+- pair-specific spacing
+- outlines
+- texture
+- highlights
+- shadows
+- extrusion
+- raster edge character
 
----
-
-# Non-negotiable truthfulness rule
-
-Never claim mathematically perfect 100% replication unless the final rendered pixels have actually been compared against the source and meet the defined tolerance.
-
-There are three task classes:
-
-1. **CLASS A — Exact existing text**
-   - The target text is already visible in the reference.
-   - Goal: near-pixel-identical reconstruction.
-   - Preferred method: extract/trace the original glyphs and effects.
-   - Do not replace with a “similar font”.
-
-2. **CLASS B — Rearrangement using glyphs already present**
-   - The requested new text can be composed entirely from characters already visible in the reference.
-   - Goal: reuse reconstructed glyph masters, then match original spacing/effects.
-   - Do not invent missing glyph shapes.
-
-3. **CLASS C — New characters not present in the reference**
-   - Exact visual identity cannot be guaranteed from the image alone.
-   - First try to identify the exact font.
-   - If the exact font cannot be verified, create the closest reconstruction but explicitly mark it as an approximation.
-   - For true exactness, request one of:
-     - original font file,
-     - editable source artwork,
-     - vector glyphs,
-     - a complete alphabet/character sample at sufficient resolution.
-
----
-
-# Fidelity priority order
-
-When conflicts occur, preserve features in this order:
-
-1. Glyph silhouette / outline geometry
-2. Stroke terminals and corner shapes
-3. Character width and height proportions
-4. Internal counters / holes
-5. Stroke contrast and weight
-6. Glyph-specific distortions or custom lettering
-7. Baseline, rotation, skew, warp and perspective
-8. Kerning between specific character pairs
-9. Tracking / overall spacing
-10. Line spacing and paragraph composition
-11. Fill color / gradient
-12. Outline / stroke layers
-13. Inline / double-line details
-14. Extrusion / 3D depth
-15. Shadow geometry
-16. Highlight / bevel
-17. Texture / distress / grain
-18. Opacity and edge softness
-19. Interaction with background
-20. Final antialiasing and raster character
-
-A cleaner result is NOT automatically a better result.
-If the reference has uneven edges, handmade distortion, print defects, blur, ink bleed, or compression artifacts that are part of the visible typography, preserve them when requested.
+**Reference glyph geometry always has higher priority than font identification.**
 
 ---
 
-# Forbidden shortcuts
+# Absolute prohibition
 
-Never do any of the following when exact reproduction is requested:
+When the user says any equivalent of:
 
-- Do not use a vaguely similar font and call it exact.
-- Do not redraw words from memory.
-- Do not normalize irregular custom glyphs.
-- Do not auto-center text if the original is optically offset.
-- Do not equalize kerning if the source has pair-specific spacing.
-- Do not remove intentional distortion, tilt, warp, stretching or compression.
-- Do not convert crystal, chrome, embroidered, furry, inflated, hand-painted, printed, embossed or stitched letter effects into a flat fill.
-- Do not merge outline and fill into one shape when the source clearly contains layered typography.
-- Do not silently invent unseen glyphs.
-- Do not “beautify” away reference-specific defects.
-- Do not alter the background, composition, subject, colors, or other graphic elements unless the user explicitly asks.
+- 100%复刻
+- 完全一样
+- 字形必须一致
+- 禁止相似字体
+- 严格复制
+- 一比一复刻
+
+the system must NOT:
+
+- substitute a visually similar font and claim success;
+- normalize unusual glyph proportions;
+- simplify handwritten or custom modifications;
+- straighten intentionally bent strokes;
+- equalize uneven stroke widths;
+- center a glyph that is visually off-center in the source;
+- repair irregular corners unless the irregularity is clearly an artifact;
+- silently invent unseen glyph shapes;
+- redraw the word from general stylistic memory;
+- use a one-pass text-to-image redraw as the primary reconstruction method;
+- regenerate the whole image when only a local glyph is wrong.
 
 ---
 
-# Input inspection
+# Truthfulness boundary
 
-Before editing or generating, inspect the reference at high magnification.
+There are two fundamentally different cases.
+
+## Case 1 — Glyph is visible in the reference
+
+This is the highest-confidence case.
+
+The target is not "find the font".
+The target is:
+
+**extract, trace, reconstruct, and reuse the exact visible glyph geometry.**
+
+When resolution is sufficient, the skill should aim for near-pixel reconstruction.
+
+## Case 2 — Glyph is NOT visible in the reference
+
+A mathematically exact reconstruction cannot be guaranteed from one image alone.
+
+For unseen glyphs, use this priority:
+
+1. exact original font file
+2. editable vector/source file
+3. another reference containing the missing glyph
+4. verified exact font identification
+5. glyph construction from the same reference type system
+6. closest approximation
+
+Levels 5–6 are never called exact.
+
+---
+
+# Glyph forensic model
+
+For every unique visible character, build a **Glyph Record**.
+
+## Glyph Record fields
+
+### A. Identity
+- character
+- occurrence index
+- source crop coordinates
+- confidence level
+
+### B. Bounding geometry
+- x
+- y
+- width
+- height
+- baseline offset
+- optical center x
+- optical center y
+- top overshoot
+- bottom overshoot
+
+### C. Skeleton
+Represent the visual centerline structure of the glyph.
 
 Record:
+- skeleton nodes
+- skeleton branches
+- endpoints
+- junctions
+- loops
+- intersections
+- dominant stroke directions
+- curvature at each segment
 
-## 1. Text content
-- Exact visible characters
-- Case
-- Punctuation
-- Numerals
-- Symbols
-- Ligatures
-- Alternate glyphs
-- Repeated letters
+Do not assume typographic textbook structure.
+Use the actual visual specimen.
 
-## 2. Glyph geometry
-For every unique visible glyph, estimate or trace:
-- bounding box
-- cap height / x-height
+### D. Stroke topology
+For each stroke-like region record:
+- start point
+- end point
+- path shape
+- direction
+- thickness profile
+- taper profile
+- curvature
+- pressure impression
+- join behavior
+- overlap behavior
+- terminal type
+
+### E. Stroke width profile
+
+Measure thickness at multiple locations.
+
+Example:
+- top horizontal: 18 px → 22 px → 20 px
+- left vertical: 24 px → 27 px → 25 px
+- diagonal: 15 px → 20 px
+
+Never replace this with a single "font weight" value when strict replication is requested.
+
+### F. Terminal library
+
+Classify and preserve terminals such as:
+- flat
+- rounded
+- pointed
+- hooked
+- flared
+- cut
+- brush-like
+- ink-swollen
+- serifed
+- wedge
+- teardrop
+- custom asymmetric
+
+Record terminal angle, width and curvature.
+
+### G. Join library
+
+Preserve:
+- miter joins
+- rounded joins
+- soft brush joins
+- overlap joins
+- broken joins
+- fused joins
+- custom pinched joins
+
+### H. Counter and negative space
+
+Measure:
+- counter width
+- counter height
+- counter shape
+- aperture opening
+- negative-space asymmetry
+
+Negative space is part of the glyph design and must not be "cleaned up".
+
+### I. Local deformation
+
+Record per-glyph:
+- horizontal scale
+- vertical scale
+- shear
+- skew
+- rotation
+- bend
+- arc
+- perspective
+- envelope warp
+- localized bulge
+- localized pinch
+- asymmetric stretching
+
+### J. Irregularities
+
+Record visible irregularities separately from noise:
+- hand-drawn wobble
+- uneven edges
+- print bleed
+- paint drag
+- rough outline
+- broken ink
+- scan softness
+- compression
+
+Do not automatically remove them.
+
+---
+
+# Chinese-character structure analysis
+
+For Chinese, Japanese Kanji, or Han-derived glyphs, additionally analyze:
+
+## 1. Character frame
+- overall square occupancy
+- top/bottom/left/right margins
+- optical center
+- center-of-mass bias
+
+## 2. Component proportions
+Measure relative component boxes.
+
+Examples:
+- left radical width = 31% of glyph
+- right component width = 63%
+- inner gap = 6%
+- top component height = 42%
+- bottom component height = 51%
+
+## 3. Stroke hierarchy
+Record:
+- 横 width profile
+- 竖 width profile
+- 撇 angle and taper
+- 捺 angle and flare
+- 点 shape and placement
+- 提 angle
+- 钩 curvature
+- 折 corner shape
+
+Do NOT generalize strokes merely by Unicode radical identity.
+Use the visible form in the reference.
+
+## 4. Structural tension
+Record:
+- whether the glyph leans
+- whether left/right parts compress
+- whether top/bottom are dense
+- whether the center opens
+- whether outer strokes flare
+- whether inner strokes are intentionally crowded
+
+## 5. Repeated stroke family consistency
+When the same stroke type appears repeatedly:
+- compare them;
+- identify intentional family resemblance;
+- preserve meaningful differences.
+
+---
+
+# Latin-letter structure analysis
+
+For Latin text, additionally record:
+
+- cap height
+- x-height
 - ascender
 - descender
-- advance width
-- left/right sidebearing
-- stroke thickness
-- stroke contrast
-- terminal shape
-- corner radius
-- aperture
-- counter shape
-- serif shape, if any
-- overshoot
-- slant
-- width class
-- vertical/horizontal scaling
-- unique custom deformation
+- stem width
+- bowl curvature
+- shoulder form
+- spur
+- ear
+- tail
+- crossbar position
+- apex
+- vertex
+- serif geometry
+- stress axis
+- contrast axis
 
-## 3. Layout
-Record:
-- line count
-- baseline coordinates
-- individual glyph x/y positions
-- rotation per glyph
-- kerning per pair
-- tracking
-- line height
-- alignment
-- optical offset
-- text block bounding box
-- perspective / arc / envelope warp
-
-## 4. Layer effects
-Record independently:
-- base fill
-- inner fill
-- gradient
-- outline 1
-- outline 2
-- inline
-- shadow
-- extrusion
-- glow
-- bevel
-- highlight
-- texture
-- grain
-- print bleed
-- distress
-- blur
-- opacity
-
-## 5. Color
-Sample from the actual reference whenever possible.
-Record colors as:
-- RGB / HEX
-- approximate Lab
-- gradient stops
-- shadow color
-- outline color
-- highlight color
-
-Do not infer “white”, “black”, “pink”, etc. if sampling is possible.
+Distinctive letters must receive special attention:
+A, B, G, M, Q, R, S, a, e, g, k, r, s, y, 1, 2, 4, 7, &, @.
 
 ---
 
-# Resolution gate
+# Reconstruction modes
 
-The system must distinguish “visible enough to reproduce” from “too small to know”.
+## MODE A — Pixel reuse
 
-For the main target lettering:
-
-- Preferred glyph height: >= 120 px
-- Usable: 60–119 px
-- Risky: 30–59 px
-- Insufficient for strict reconstruction: < 30 px
-
-If critical details are unreadable:
-- do not hallucinate terminals or micro-details;
-- preserve only what is actually visible;
-- request a crop, original file, higher-resolution screenshot, or close-up if strict fidelity is required.
-
----
-
-# Workflow
-
-## Stage 1 — Isolate typography
-
-Create a working crop with 10–30% padding around the typography.
-
-Separate:
-- foreground letterforms
-- outline
-- shadow/extrusion
-- decorative particles
-- background
-
-If the lettering overlaps complex imagery, use masks and local reconstruction instead of destructive global changes.
-
----
-
-## Stage 2 — Determine reconstruction strategy
-
-### Strategy A: Direct glyph extraction
 Use when:
-- text already exists in the reference;
-- reference resolution is sufficient;
-- user wants the same wording.
+- target word is unchanged;
+- source resolution is adequate;
+- background can be separated.
 
-Process:
-1. isolate each glyph;
-2. preserve original edge shape;
-3. reconstruct occluded fragments only when evidence is sufficient;
-4. retain the original glyph as the master;
-5. rebuild layout from recorded coordinates.
+Method:
+1. isolate original glyph pixels;
+2. reconstruct only occluded/contaminated edge pixels;
+3. preserve original raster edge character;
+4. reuse original glyphs directly.
 
-This is the default for strict reproduction.
+This is the preferred mode for maximum fidelity.
 
-### Strategy B: Vector tracing
+## MODE B — Vector contour reconstruction
+
 Use when:
-- the source is clean, high contrast, logo-like, or geometric;
-- scaling is required.
+- scaling is required;
+- source is clean enough for tracing.
 
-Process:
-1. trace the outer contour;
-2. trace counters separately;
-3. simplify only below visible pixel tolerance;
-4. retain asymmetric/custom anomalies;
-5. compare rasterized trace against the source at target size.
+Method:
+1. trace outer contour;
+2. trace holes/counters;
+3. preserve every visible corner and irregularity above tolerance;
+4. rasterize at target size;
+5. compare against source;
+6. iteratively correct contour control points.
 
-### Strategy C: Exact font identification
-Use when new characters are required.
+## MODE C — Stroke-model reconstruction
 
-Verification requires more than a similar font name.
-Compare:
-- distinctive glyphs
-- R / G / Q / S / a / g / e
-- numerals 1 / 2 / 4 / 7
-- punctuation
-- terminals
-- widths
-- kerning behavior
-
-If a candidate fails distinctive glyph comparison, reject it.
-
-### Strategy D: Hybrid reconstruction
 Use when:
-- a base font is identifiable but the reference contains custom modifications.
+- the glyph is stylized;
+- vector contour alone is insufficient;
+- handwritten/brush geometry matters.
 
-Process:
-1. render the verified base font;
-2. convert to outlines;
-3. edit glyph geometry;
-4. apply per-glyph scale/skew/warp;
-5. restore custom terminals and cuts;
-6. reproduce effects.
+Method:
+1. reconstruct skeleton;
+2. reconstruct width profile along skeleton;
+3. rebuild terminals;
+4. rebuild joins;
+5. apply local deformation;
+6. compare final contour to source.
+
+## MODE D — Hybrid exact-font + custom deformation
+
+Use only when exact font identification is verified.
+
+Method:
+1. render exact font;
+2. convert to outline;
+3. compare to source;
+4. apply per-glyph geometric corrections;
+5. apply reference-specific effects.
+
+The exact font is only a starting geometry, not an excuse to skip correction.
 
 ---
 
-# Exact-font identification rules
+# Reference resolution rules
 
-A font candidate is NOT accepted only because OCR/font-recognition software suggested it.
+For strict glyph-structure work:
 
-Require visual verification against multiple glyphs.
+- >= 160 px glyph height: excellent
+- 100–159 px: strong
+- 60–99 px: usable
+- 40–59 px: risky
+- < 40 px: insufficient for micro-structure certainty
 
-Score candidate fonts on:
+If the user asks for absolute fidelity and glyphs are too small:
+- do not invent stroke micro-shape;
+- request a larger crop or source image.
 
-- silhouette similarity: 35%
-- distinctive glyph features: 20%
-- proportion/width: 15%
-- stroke geometry: 10%
-- terminal/corner design: 10%
-- default spacing behavior: 5%
-- numeral/punctuation match: 5%
+---
 
-Reject a candidate when:
-- a signature glyph differs clearly;
-- width requires extreme horizontal scaling;
-- terminal geometry conflicts;
+# Preprocessing
+
+Before measuring glyph structure:
+
+1. crop typography region with 15–25% padding;
+2. correct perspective only for measurement;
+3. preserve original uncorrected image for final compositing;
+4. separate color channels if contrast is poor;
+5. generate:
+   - grayscale
+   - high-contrast mask
+   - edge map
+   - skeleton map
+   - effect masks
+6. inspect at:
+   - 100%
+   - 200%
+   - 400%
+   - 800% when needed
+
+Never rely on OCR alone for shape reconstruction.
+
+---
+
+# Font-identification policy
+
+Font recognition is secondary.
+
+A candidate font may be accepted only after geometric verification.
+
+Compare at least 5 distinctive glyph features when available.
+
+Scoring:
+- contour silhouette: 30%
+- skeleton topology: 20%
+- stroke width behavior: 15%
+- terminals/joins: 15%
+- proportions: 10%
+- counters/negative space: 5%
+- spacing behavior: 5%
+
+Reject if:
+- signature terminals differ;
+- stroke modulation differs;
 - counters differ materially;
-- serif structure differs;
-- the source is obviously custom lettering.
+- proportions require extreme scaling;
+- a custom glyph is obviously altered;
+- the source behaves like lettering rather than an untouched font.
 
 ---
 
-# New-text reconstruction
+# Layout reconstruction
 
-When the user asks to change the wording:
+For every glyph occurrence, record:
 
-## If all glyphs already exist
-Build a glyph library from the reference and reuse the exact extracted/traced glyph masters.
+- left x
+- top y
+- width
+- height
+- baseline
+- rotation
+- optical offset
+- previous-glyph gap
+- next-glyph gap
 
-Do not retype them with a font.
+Pair spacing is authoritative.
 
-For each reused glyph preserve:
-- original shape
-- relative scale
-- fill
-- outline
-- texture
-- lighting
+Do not assume uniform tracking.
 
-Then recompute only:
-- pair spacing
-- line composition
-- target placement
+Measure:
+- actual black-shape gap
+- bounding-box gap
+- optical gap
 
-## If some glyphs are missing
-Use this priority:
-
-1. exact identified font
-2. additional user references containing the missing glyph
-3. original vector/font file
-4. mathematically inferred compatible glyph from the same type system
-5. closest approximation
-
-Levels 4–5 must never be described as guaranteed exact.
+Use optical gap for final tuning.
 
 ---
 
-# Typography effects reconstruction
+# Effect separation
 
-Treat effects as independent layers.
+Typography effects must be reconstructed as separate layers.
 
-Example stack:
+Recommended stack:
 
-1. glyph mask
-2. fill
-3. inner texture
-4. highlight
-5. inner shadow
-6. primary outline
-7. secondary outline
-8. extrusion
-9. cast shadow
-10. glow / ambient halo
-11. distress / print texture
+1. base glyph alpha
+2. base color
+3. inner gradient
+4. local texture
+5. inner highlight
+6. inner shadow
+7. primary stroke
+8. secondary stroke
+9. inline decoration
+10. bevel
+11. extrusion
+12. cast shadow
+13. outer glow
+14. grain/distress
+15. final blur/print/raster character
 
-Never bake all effects into an uncontrolled one-pass generative redraw when strict fidelity is required.
+Effect styling must never alter the recovered glyph contour unless the reference shows that it does.
 
-For complex treatments such as:
-- metallic chrome
-- rhinestone letters
+---
+
+# Material lettering
+
+For:
+- chrome
+- crystal
+- rhinestone
 - embroidery
 - chenille
 - puff print
@@ -369,176 +521,249 @@ For complex treatments such as:
 - sequins
 - glitter
 - fur
-- inflated 3D lettering
 - glass
 - jelly
 - candy
 - neon
+- carved
+- embossed
+- debossed
 
-preserve material behavior separately from glyph geometry.
+separate:
 
-**Glyph geometry has higher priority than material beautification.**
+**glyph geometry** from **material appearance**.
 
----
+First lock geometry.
+Then reconstruct material.
 
-# Image editing / generation behavior
-
-If an image editing tool is available:
-
-## Exact existing text
-- use the reference image as the source;
-- protect non-text regions with masks;
-- modify the smallest possible region;
-- reconstruct letterforms locally;
-- do not regenerate the whole image if only typography needs changes.
-
-## New text
-- generate/reconstruct typography on a separate transparent layer when possible;
-- composite onto the original;
-- match original perspective, blur, noise and compression;
-- avoid changing surrounding objects.
-
-If a transparent-layer workflow is unavailable, simulate it by minimizing the edit region.
+Never allow material generation to distort the glyph silhouette.
 
 ---
 
-# Pixel comparison QA
+# New-word workflow
 
-After reconstruction, compare the source and result at the same scale and crop.
+When target text differs from reference:
 
-Recommended metrics:
+## Step 1
+Build a glyph master library from all visible characters.
 
-- SSIM on grayscale shape mask
-- edge-map overlap / F1
-- alpha-mask IoU
-- per-channel MAE
-- glyph bounding-box deviation
-- baseline deviation
-- pair-spacing deviation
+## Step 2
+For repeated characters:
+- reuse the same master only if the reference shows identical instances;
+- otherwise preserve instance-specific variants.
 
-Recommended strict targets for CLASS A clean references:
+## Step 3
+For missing characters:
+- search exact font only if permitted/available;
+- otherwise construct from reference stroke families.
 
-- glyph mask IoU >= 0.98
-- edge F1 >= 0.97
-- SSIM >= 0.97
-- average glyph position deviation <= 1.5 px at working resolution
-- baseline deviation <= 1 px
-- major effect-layer displacement <= 2 px
+## Step 4
+For Chinese missing glyph construction:
+reuse measured stroke families:
+- horizontal family
+- vertical family
+- left-falling family
+- right-falling family
+- dot family
+- hook family
+- turning-corner family
 
-These are targets, not a license to claim perfection.
+But preserve the truthfulness boundary:
+constructed unseen glyphs are stylistically matched, not proven exact.
 
 ---
 
-# Visual QA checklist
+# Per-glyph deformation field
 
-Zoom to at least:
-- 100%
-- 200%
-- 400%
+Each glyph may carry its own transform:
 
-Check every character.
-
-For each glyph verify:
-
-- shape
-- width
-- height
-- stroke thickness
-- terminals
-- counters
-- corner shape
+- sx
+- sy
+- shear_x
+- shear_y
 - rotation
-- vertical position
-- left/right spacing
-- outline thickness
-- shadow offset
-- texture scale
-- edge softness
-- color
+- local warp grid
+- perspective quad
 
-Also check the whole word at normal viewing size for optical spacing.
+Do not apply one global transform to all glyphs unless the source proves that transformation is global.
 
 ---
 
-# Failure loop
+# Pixel-level QA
 
-If the comparison fails:
+For visible-reference glyphs, final QA should include:
 
-1. identify the exact glyph/effect region that differs;
-2. lock all correct regions;
-3. redo only the incorrect local region;
-4. compare again;
-5. repeat until within tolerance or evidence is insufficient.
+## Geometry metrics
+- alpha-mask IoU
+- contour Hausdorff distance
+- edge F1
+- skeleton overlap
+- bounding-box deviation
+- optical-center deviation
+- stroke-width error
 
-Do NOT regenerate the entire artwork just because one letter is wrong.
+## Raster metrics
+- SSIM
+- MAE
+- local contrast error
+- color delta
 
----
+## Layout metrics
+- baseline error
+- pair-spacing error
+- glyph rotation error
+- text-block size error
 
-# Stop conditions
+Recommended strict targets on a clean high-resolution reference:
 
-Stop guessing and ask for better evidence when:
+- mask IoU >= 0.985
+- edge F1 >= 0.98
+- skeleton overlap >= 0.97
+- SSIM >= 0.975
+- average contour deviation <= 1.25 px
+- baseline deviation <= 1 px
+- pair-spacing deviation <= 1.5 px
+- average stroke-width deviation <= 4%
 
-- the target glyph is too small or blurred;
-- critical letters are occluded;
-- a new requested glyph never appears and no exact font is verified;
-- decorative letter detail cannot be distinguished from compression artifacts;
-- the source contains perspective so extreme that the original geometry is unknowable;
-- the user requires legal/trademark certainty about a proprietary font identity from appearance alone.
-
----
-
-# User-facing output convention
-
-When successful, state the result class:
-
-- “Exact-reference reconstruction” for CLASS A
-- “Reference-glyph recomposition” for CLASS B
-- “Best-match new-glyph reconstruction” for CLASS C
-
-Never say “100% exact” merely from visual judgment.
-
-If the user explicitly asks for “100%复刻”, interpret it as:
-**use the strictest fidelity workflow available, with no approximation shortcuts.**
+These are engineering targets, not proof of metaphysical “100%”.
 
 ---
 
-# Default execution prompt
+# Character-by-character QA table
 
-When invoked with a reference image, internally apply:
+Before accepting a result, inspect each glyph:
 
-> Treat the typography in the reference as immutable visual evidence.  
-> Do not substitute a merely similar font.  
-> First recover the exact glyph silhouettes, proportions, terminals, spacing,
-> baseline, distortion, fill, outline, shadow, texture, and raster edge character.
-> If the target wording is unchanged, reconstruct from the original glyph pixels
-> or traced outlines. If the target wording changes, reuse existing glyph masters
-> wherever possible. Never invent unseen glyphs while claiming exactness.
-> Modify only typography-related regions and preserve all unrelated image content.
-> Run character-by-character comparison and redo only failed local regions.
+| Attribute | Must check |
+|---|---|
+| silhouette | yes |
+| skeleton | yes |
+| aspect ratio | yes |
+| stroke thickness | yes |
+| taper | yes |
+| terminals | yes |
+| joins | yes |
+| counters | yes |
+| local deformation | yes |
+| position | yes |
+| rotation | yes |
+| pair spacing | yes |
+| outline | yes |
+| shadow | yes |
+| texture | yes |
+| edge softness | yes |
 
----
-
-# Invocation examples
-
-## Example 1
-`按 $font-reference-replica 执行，把参考图里的 “FABRIC PIG” 字体和所有效果原样复刻到新图中。`
-
-Expected mode: CLASS A.
-
-## Example 2
-`按 $font-reference-replica 执行，用参考图现有字形重新排成 “PIG FABRIC”。`
-
-Expected mode: CLASS B if all glyphs exist.
-
-## Example 3
-`按 $font-reference-replica 执行，把 “HELLO” 改成 “WELCOME”，字体风格必须一致。`
-
-Expected mode: CLASS C unless all required glyphs exist or exact font is identified.
+If any high-priority attribute fails, that glyph fails.
 
 ---
 
-# Core rule summary
+# Failure repair loop
 
-**Existing reference glyphs are source assets, not suggestions.**
+When one glyph fails:
 
-**Trace/reuse first. Identify fonts second. Approximate only as a disclosed last resort.**
+1. freeze every correct glyph;
+2. isolate failed glyph;
+3. identify the failed attribute;
+4. edit only that attribute;
+5. rerender;
+6. compare again.
+
+Examples:
+- wrong horizontal width → adjust only width field;
+- wrong left radical proportion → edit only component box;
+- wrong hook → replace only hook terminal geometry;
+- wrong shadow → keep contour frozen and adjust shadow layer only.
+
+Do not regenerate the full word.
+
+---
+
+# Anti-AI-drift rules
+
+Image-generation systems tend to:
+- normalize proportions;
+- soften corners;
+- invent missing strokes;
+- change stroke count;
+- distort Chinese radicals;
+- alter text content;
+- randomize kerning.
+
+Therefore strict execution must repeatedly state:
+
+- exact character count
+- exact character order
+- exact stroke topology
+- exact silhouette
+- no added stroke
+- no deleted stroke
+- no merged stroke
+- no swapped radical
+- no substitute character
+- no spelling change
+- no font substitution
+- no automatic beautification
+
+---
+
+# Output preservation
+
+If typography is being edited inside an existing image:
+
+LOCK all unrelated regions:
+
+- subject
+- face
+- body
+- garment
+- background
+- color grading
+- lighting
+- composition
+- crop
+- props
+
+Only the typography region may change unless the user says otherwise.
+
+---
+
+# Execution phrase
+
+When invoked, internally enforce:
+
+> Treat every visible character in the reference as an individual forensic glyph specimen.
+> Do not recreate the text from a similar font.
+> Recover the actual glyph skeleton, stroke topology, stroke-width variation, terminals,
+> joins, counters, component proportions, local deformation, optical center, pair spacing,
+> outlines, texture, shadow, and raster edge character from the reference itself.
+> For Chinese characters, reconstruct component boxes and every stroke family from the
+> visible specimen; preserve exact stroke count, direction, hook, turn, taper and center
+> of gravity. Freeze correct glyphs and only redo failed local regions.
+> Existing visible glyphs must be traced/reused whenever possible.
+
+---
+
+# User invocation template
+
+按 `$font-reference-replica` 执行。
+
+参考图：图1  
+目标文字：{TARGET_TEXT}
+
+最高优先级：
+- 完全按照参考图重建字形结构；
+- 不得使用相似字体直接替代；
+- 逐字复刻字形比例、骨架、笔画数量、笔画方向、粗细变化、转折、钩、撇、捺、收笔；
+- 逐字复刻局部压缩、拉伸、倾斜、旋转和不规则形变；
+- 复刻每个字的重心、部件占比、负空间和字距；
+- 描边、颜色、纹理、阴影、立体效果独立复刻；
+- 禁止增笔、减笔、并笔、错字、替字；
+- 正确区域锁定，错误字符只局部重做；
+- 参考图中已经出现的字形优先直接描摹/提取，不得重新用近似字体生成。
+
+---
+
+# Final principle
+
+**Font name is optional. Glyph geometry is mandatory.**
+
+**The reference image is the ground truth.**
