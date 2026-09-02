@@ -1,0 +1,7 @@
+interface:
+  display_name: "Clothing Detail"
+  short_description: "Create faithful macro detail images for fashion product pages."
+  default_prompt: "Use $clothing-detail to create four independent detail images from my uploaded garment photo."
+
+policy:
+  allow_implicit_invocation: true
