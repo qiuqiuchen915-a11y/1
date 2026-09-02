@@ -1,0 +1,7 @@
+interface:
+  display_name: "Product Shots Image Generator"
+  short_description: "Render product visuals through supported image APIs."
+  default_prompt: "Use $product-shots-image-gen to render this product image from my prompt and references."
+
+policy:
+  allow_implicit_invocation: true

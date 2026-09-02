@@ -1,0 +1,7 @@
+interface:
+  display_name: "Product Shots Detail Page"
+  short_description: "Design consistent Amazon A+ content modules."
+  default_prompt: "Use $product-shots-detail-page to design an Amazon A+ content suite for this product."
+
+policy:
+  allow_implicit_invocation: true

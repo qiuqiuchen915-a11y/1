@@ -1,0 +1,7 @@
+interface:
+  display_name: "Product Shots Social Post"
+  short_description: "Design native product visuals for social platforms."
+  default_prompt: "Use $product-shots-social-post to design a platform-native social visual for this product."
+
+policy:
+  allow_implicit_invocation: true

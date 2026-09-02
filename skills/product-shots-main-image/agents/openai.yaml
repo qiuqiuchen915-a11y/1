@@ -1,0 +1,7 @@
+interface:
+  display_name: "Product Shots Main Image"
+  short_description: "Create Amazon main and secondary listing images."
+  default_prompt: "Use $product-shots-main-image to create an Amazon-ready main image and listing carousel."
+
+policy:
+  allow_implicit_invocation: true

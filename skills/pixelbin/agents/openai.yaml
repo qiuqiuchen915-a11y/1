@@ -1,0 +1,7 @@
+interface:
+  display_name: "PixelBin Media Pipeline"
+  short_description: "Generate, transform, store, and deliver product media."
+  default_prompt: "Use $pixelbin to build a safe product-media generation and transformation workflow."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Product Shots Ad Creative"
+  short_description: "Design platform-ready product advertising creatives."
+  default_prompt: "Use $product-shots-ad-creative to design a platform-ready ad creative for this product."
+
+policy:
+  allow_implicit_invocation: true
