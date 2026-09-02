@@ -1,0 +1,7 @@
+interface:
+  display_name: "Clothing Extraction"
+  short_description: "Extract garments into faithful white-background flat-lay product images."
+  default_prompt: "Use $clothing-extraction to extract the garment from my uploaded photo as a white-background flat-lay product image."
+
+policy:
+  allow_implicit_invocation: true
