@@ -1,7 +1,0 @@
-interface:
-  display_name: "Product Shots"
-  short_description: "Route product requests into complete visual suites."
-  default_prompt: "Use $product-shots to plan a complete e-commerce visual suite for this product."
-
-policy:
-  allow_implicit_invocation: true

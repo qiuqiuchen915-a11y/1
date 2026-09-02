@@ -1,7 +1,0 @@
-interface:
-  display_name: "Fashion Item Extractor"
-  short_description: "Split a complete outfit into individual product images."
-  default_prompt: "Use $fashion-item-extractor to identify every item in this outfit and create separate white-background product images."
-
-policy:
-  allow_implicit_invocation: true

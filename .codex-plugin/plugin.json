@@ -1,26 +1,26 @@
 {
   "name": "clothing-extraction",
-  "version": "1.2.0",
-  "description": "Create, extract, inspect, transform, and publish professional fashion and product imagery.",
+  "version": "1.3.0",
+  "description": "Create faithful fashion e-commerce flat-lay and garment-detail images without external API keys.",
   "author": {
     "name": "qiuqiuchen915-a11y",
     "url": "https://github.com/qiuqiuchen915-a11y"
   },
   "repository": "https://github.com/qiuqiuchen915-a11y/1",
   "license": "MIT",
-  "keywords": ["clothing", "fashion", "product-shots", "pixelbin", "flat-lay", "ecommerce", "image-editing"],
+  "keywords": ["clothing", "fashion", "flat-lay", "ecommerce", "image-editing"],
   "skills": "./skills/",
   "interface": {
     "displayName": "Fashion E-commerce Skills",
-    "shortDescription": "Professional fashion extraction and product-image workflows.",
-    "longDescription": "Extract garments and complete outfits, preserve fine clothing details, create product listing suites, ads and social visuals, and run PixelBin generation, transformation, CDN and media-pipeline workflows.",
+    "shortDescription": "Create faithful clothing flat lays and macro detail images.",
+    "longDescription": "Extract garments from model or cluttered photos as clean white-background flat lays, and create consistent macro detail images of collars, cuffs, hems, construction, decorations, and fabric texture without external API credentials.",
     "developerName": "qiuqiuchen915-a11y",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],
     "defaultPrompt": [
       "按 $clothing-extraction 执行，提取这件衣服。",
-      "用 $clothing-detail 为这件服装生成四张独立细节图。",
-      "用 $product-shots 为这个商品规划并生成一套电商视觉素材。"
+      "用 $clothing-extraction 把模特上衣转成白底平铺商品图。",
+      "用 $clothing-detail 为这件服装生成四张独立细节图。"
     ]
   }
 }

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Product Shots Multi Angle"
-  short_description: "Create consistent nine-angle fashion photo series."
-  default_prompt: "Use $product-shots-multi-angle to turn this reference into a consistent nine-angle fashion series."
-
-policy:
-  allow_implicit_invocation: true
