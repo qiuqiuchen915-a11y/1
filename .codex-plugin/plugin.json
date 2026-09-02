@@ -1,0 +1,26 @@
+{
+  "name": "clothing-extraction",
+  "version": "1.0.0",
+  "description": "Extract garments from photos as faithful white-background flat-lay product images.",
+  "author": {
+    "name": "qiuqiuchen915-a11y",
+    "url": "https://github.com/qiuqiuchen915-a11y"
+  },
+  "repository": "https://github.com/qiuqiuchen915-a11y/1",
+  "license": "MIT",
+  "keywords": ["clothing", "fashion", "flat-lay", "ecommerce", "image-editing"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Clothing Extraction",
+    "shortDescription": "Turn clothing photos into faithful white-background flat lays.",
+    "longDescription": "Extract one garment from a model or cluttered photo, remove the person and background, reconstruct occluded areas conservatively, and generate a faithful white-background e-commerce flat-lay image.",
+    "developerName": "qiuqiuchen915-a11y",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write"],
+    "defaultPrompt": [
+      "按 $clothing-extraction 执行，提取这件衣服。",
+      "用 $clothing-extraction 把模特上衣转成白底平铺商品图。",
+      "用 $clothing-extraction 分别提取整套穿搭中的每件单品。"
+    ]
+  }
+}
