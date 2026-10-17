@@ -149,6 +149,13 @@ def main():
     for box, (local_iou, local_edge, rc, cc) in regions:
         score = f"{local_iou:.6f}" if local_iou is not None else "N/A (empty masks)"
         print(f"ROI {tuple(box)}: IoU={score}; Mask Edge F1={local_edge:.6f}; components(8)={rc}/{cc}")
+        x0, y0, x1, y1 = box
+        a, b = rm[y0:y1, x0:x1], cm[y0:y1, x0:x1]
+        gap_iou = mask_iou(~a, ~b) if np.logical_or(~a, ~b).any() else None
+        gap_score = f"{gap_iou:.6f}" if gap_iou is not None else "N/A (no background)"
+        missing = int(np.logical_and(a, ~b).sum())
+        added = int(np.logical_and(~a, b).sum())
+        print(f"  Background IoU={gap_score}; missing foreground={missing}; added foreground={added}")
         if rc != cc:
             print("Warning: ROI connectivity differs; inspect bridges, gaps and segmentation.")
     print("Diff:", Path(args.diff).resolve())

@@ -6,12 +6,14 @@ description: >
   width/height ratios, local deformation, spacing, outlines, texture, and effects.
   Use when the user requires exact or near-pixel reproduction of lettering and forbids
   similar-font substitution. Includes lightly connected Chinese lettering,
-  partial ligatures, interlocking strokes, and shared sweeping terminals.
+  partial ligatures, interlocking strokes, shared sweeping terminals, and
+  intentional broken strokes mixed with connections, and inventive custom
+  strokes, loops, swashes, shared strokes and component transformations.
 ---
 
 # $font-reference-replica
 
-Revision: 2.1.0
+Revision: 2.3.0
 
 ## Core objective
 
@@ -335,6 +337,15 @@ For slight connections, interlocking strokes, shared swashes, or near-touching
 lettering, read [connected-lettering.md](references/connected-lettering.md) before
 segmentation. Lock whole-line geometry, map true connections versus intentional
 gaps, then reconstruct joint groups while keeping individual Glyph Records.
+For intentional broken strokes mixed with connections, also read
+[broken-connected-lettering.md](references/broken-connected-lettering.md). Record
+keep-open cuts and keep-connected bridges separately, including intra-character
+junctions; never restore conventional stroke connectivity over the reference.
+For inventive hooks, loops, swashes, borrowed/shared strokes or component
+transformations, also read [custom-stroke-lettering.md](references/custom-stroke-lettering.md).
+Preserve deliberate departures already visible in the source. The prohibitions
+on added/deleted/merged strokes forbid deviations from that source, not its
+existing intentional design. Never normalize the specimen to a standard font.
 Never cut a shared stroke at a character box. At a faulty junction, freeze pixels
 outside the junction ROI and repair both participating strokes together; this
 qualifies the per-glyph freezing rule below. Validate every junction locally even
