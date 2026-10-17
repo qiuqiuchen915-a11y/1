@@ -5,11 +5,13 @@ description: >
   from reference imagery by analyzing skeletons, stroke topology, terminals, joins,
   width/height ratios, local deformation, spacing, outlines, texture, and effects.
   Use when the user requires exact or near-pixel reproduction of lettering and forbids
-  similar-font substitution.
-version: 2.0.0
+  similar-font substitution. Includes lightly connected Chinese lettering,
+  partial ligatures, interlocking strokes, and shared sweeping terminals.
 ---
 
 # $font-reference-replica
+
+Revision: 2.1.0
 
 ## Core objective
 
@@ -324,6 +326,20 @@ For Latin text, additionally record:
 
 Distinctive letters must receive special attention:
 A, B, G, M, Q, R, S, a, e, g, k, r, s, y, 1, 2, 4, 7, &, @.
+
+---
+
+# Connected and interlocking lettering
+
+For slight connections, interlocking strokes, shared swashes, or near-touching
+lettering, read [connected-lettering.md](references/connected-lettering.md) before
+segmentation. Lock whole-line geometry, map true connections versus intentional
+gaps, then reconstruct joint groups while keeping individual Glyph Records.
+Never cut a shared stroke at a character box. At a faulty junction, freeze pixels
+outside the junction ROI and repair both participating strokes together; this
+qualifies the per-glyph freezing rule below. Validate every junction locally even
+when global IoU passes. Preserve the original no-substitution and unseen-glyph
+truthfulness boundaries.
 
 ---
 
