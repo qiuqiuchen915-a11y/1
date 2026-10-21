@@ -101,3 +101,10 @@ only changes mask metrics; it does not remove background from MAE, Edge F1, SSIM
 or the difference image. None of these aggregate scores proves correct character
 identity or local scratch/texture fidelity. Preserve the SKILL.md per-character,
 geometry-first reconstruction rules and inspect local crops and effects separately.
+
+
+## Revision 2.4: reference-style extraction and changed-text transfer
+
+The skill now requires a **Reference Style Sheet** before reconstructing new wording. It separates observed source features from reusable style rules and one-off glyph inventions, inherits the reference layout unless the user requests a change, and requires a two-pass process for unseen Chinese characters: preserve character identity/topology first, then transfer measured stroke and contour behavior.
+
+For bold, geometric-organic or expressive display lettering, follow [heavy-geometric-display.md](references/heavy-geometric-display.md). This guide emphasizes stroke-width ranges, terminals, curve tension, counters, intentional gaps/bridges, whole-word rhythm and transparent-PNG validation. It does not promise mathematical 100% reproduction for unseen characters; use “traced/reused” for source-visible forms and “constructed/style-matched” for inferred forms.
