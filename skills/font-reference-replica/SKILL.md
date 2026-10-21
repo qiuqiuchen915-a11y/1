@@ -13,7 +13,7 @@ description: >
 
 # $font-reference-replica
 
-Revision: 2.3.0
+Revision: 2.4.0
 
 ## Core objective
 
@@ -21,6 +21,46 @@ Reconstruct the typography in the reference image with the highest fidelity tech
 
 This skill does **not** treat the reference as merely a "font style".
 It treats each visible character as a **forensic glyph specimen**.
+
+
+## Mandatory style-extraction gate (Revision 2.4)
+
+Before drawing a changed phrase, create a compact **Reference Style Sheet** from the actual pixels. Never jump directly from a vague label such as “bold”, “cute”, “geometric” or “display” to a generated word.
+
+Record each feature in one of three evidence classes:
+- **Observed invariant**: directly visible and must be preserved when applicable (foreground color, weight range, terminal language, corner character, curve tension, counter openness, overall orientation and rhythm).
+- **Transferable rule**: a repeated visual behavior that can be adapted to a different character (how diagonals taper, how curves join stems, how horizontal strokes end, how inner spaces are opened).
+- **Character-specific exception**: a distinctive shape that belongs to one source glyph only; do not paste it onto an unrelated character.
+
+The sheet must cover:
+1. text-block orientation, line arrangement, glyph occupancy, overall silhouette and margins;
+2. per-glyph bounding box, aspect ratio, optical center, lean and local deformation;
+3. horizontal, vertical, diagonal and curved stroke families, including their measured width ranges rather than one global “font weight”;
+4. terminal types, corner geometry, taper, blunt cuts, wedge tips and roundness;
+5. actual joins, bridges, overlaps, near-touches and intentional gaps;
+6. counters and negative-space shapes, including narrow apertures and asymmetry;
+7. foreground/background separation, antialiasing, texture and effects as separate layers.
+
+**Layout inheritance rule:** if the target wording changes but the user has not requested a new layout, inherit the reference’s reading direction and block arrangement. A vertically stacked reference must not silently become a horizontal wordmark. Only change orientation or composition when explicitly requested or when the reference gives no reliable layout evidence.
+
+For thick geometric or highly stylized Chinese display lettering, also read [heavy-geometric-display.md](references/heavy-geometric-display.md). This is a workflow for analyzing and transferring a style, not a preset to impose on every reference.
+
+## Required reconstruction gate for changed text
+
+When the requested characters differ from those visible in the source:
+
+1. Build a source-character inventory and mark every target character as **visible / partially visible / unseen**. Reuse or trace visible glyphs; do not redraw them from memory.
+2. Build a target-character skeleton and component map first. Character identity, component order and required strokes must remain legible before style transfer.
+3. Transfer the measured stroke families, weight behavior, terminals, corners, curve tension and negative-space logic. Do not transfer a decorative loop, cut, bridge or swash unless the source shows that it belongs to a reusable stroke rule and the target stroke can support it.
+4. Construct each unseen glyph as a custom silhouette, preferably with editable vector paths or independently editable positive strokes and subtractive counters/cuts. Use a font only as a structural reference if permitted; never accept an unverified font render as the finished replica.
+5. Assemble the full phrase and tune optical spacing in context. Do not center or space each glyph independently in a way that destroys the source’s rhythm.
+6. Inspect the full word, every glyph, and every difficult junction at native size and enlarged views. Repair only the failed glyph or junction ROI; freeze all accepted regions.
+
+A one-pass image-generation result may be used as a rough concept for unseen glyphs, but must not be treated as a verified final contour. The final PNG must be checked for correct text, complete strokes, preserved counters, intended cuts/bridges, black foreground and genuinely transparent background.
+
+## Confidence and claims
+
+Use **traced/reused** for source-visible glyphs and **constructed/style-matched** for unseen glyphs. Do not call a constructed glyph pixel-exact or promise 100% fidelity without a matching source glyph or original vector/font data. Visual similarity is an optimization target, not proof of identity.
 
 The workflow must recover and preserve:
 
