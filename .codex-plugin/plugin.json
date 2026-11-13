@@ -1,26 +1,40 @@
 {
   "name": "clothing-extraction",
-  "version": "1.3.0",
-  "description": "Create faithful fashion e-commerce flat-lay and garment-detail images without external API keys.",
+  "version": "1.4.0",
+  "description": "A visual production toolkit for faithful fashion imagery, garment details, and high-fidelity reference lettering reconstruction.",
   "author": {
     "name": "qiuqiuchen915-a11y",
     "url": "https://github.com/qiuqiuchen915-a11y"
   },
   "repository": "https://github.com/qiuqiuchen915-a11y/1",
   "license": "MIT",
-  "keywords": ["clothing", "fashion", "flat-lay", "ecommerce", "image-editing"],
+  "keywords": [
+    "clothing",
+    "fashion",
+    "flat-lay",
+    "ecommerce",
+    "image-editing",
+    "typography",
+    "font-replica",
+    "glyph-reconstruction"
+  ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Fashion E-commerce Skills",
-    "shortDescription": "Create faithful clothing flat lays and macro detail images.",
-    "longDescription": "Extract garments from model or cluttered photos as clean white-background flat lays, and create consistent macro detail images of collars, cuffs, hems, construction, decorations, and fabric texture without external API credentials.",
+    "displayName": "Visual Production Skills",
+    "shortDescription": "Create faithful fashion imagery, garment details, and reference-matched typography.",
+    "longDescription": "A collection of visual production skills for fashion e-commerce imagery, garment macro details, and high-fidelity lettering reconstruction from reference images, with evidence-led workflows and quality checks.",
     "developerName": "qiuqiuchen915-a11y",
     "category": "Productivity",
-    "capabilities": ["Interactive", "Write"],
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
     "defaultPrompt": [
       "按 $clothing-extraction 执行，提取这件衣服。",
       "用 $clothing-extraction 把模特上衣转成白底平铺商品图。",
-      "用 $clothing-detail 为这件服装生成四张独立细节图。"
+      "用 $clothing-detail 为这件服装生成四张独立细节图。",
+      "按 $font-reference-replica v3.0 执行，复刻参考图中的标题字体。",
+      "用 $font-reference-replica v3.0 重建这组文字，输出黑字透明底 PNG。"
     ]
   }
 }
