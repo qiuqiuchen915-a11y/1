@@ -1,0 +1,7 @@
+interface:
+  display_name: "Design Taste"
+  short_description: "Expert design-engineering judgment for premium web UI and anti-slop review."
+  default_prompt: "Use $design-taste to design, review, and refine a web interface with precise visual craft and an evidence-based critique pass."
+
+policy:
+  allow_implicit_invocation: true

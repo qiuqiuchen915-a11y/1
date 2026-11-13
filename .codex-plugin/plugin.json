@@ -1,7 +1,7 @@
 {
   "name": "clothing-extraction",
-  "version": "1.4.0",
-  "description": "A visual production toolkit for faithful fashion imagery, garment details, and high-fidelity reference lettering reconstruction.",
+  "version": "1.5.0",
+  "description": "A visual production toolkit for fashion imagery, reference-matched typography, professional graphic design, and design-taste review.",
   "author": {
     "name": "qiuqiuchen915-a11y",
     "url": "https://github.com/qiuqiuchen915-a11y"
@@ -16,13 +16,20 @@
     "image-editing",
     "typography",
     "font-replica",
-    "glyph-reconstruction"
+    "glyph-reconstruction",
+    "graphic-design",
+    "art-direction",
+    "design-taste",
+    "poster-design",
+    "social-media-graphics",
+    "design-critique",
+    "visual-hierarchy"
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Visual Production Skills",
-    "shortDescription": "Create faithful fashion imagery, garment details, and reference-matched typography.",
-    "longDescription": "A collection of visual production skills for fashion e-commerce imagery, garment macro details, and high-fidelity lettering reconstruction from reference images, with evidence-led workflows and quality checks.",
+    "displayName": "Visual Production & Design Skills",
+    "shortDescription": "Fashion imagery, typography replication, graphic design, and visual critique.",
+    "longDescription": "A visual production collection covering fashion e-commerce imagery, garment details, high-fidelity lettering reconstruction, professional graphic design, campaign collateral, and frontend design-taste review.",
     "developerName": "qiuqiuchen915-a11y",
     "category": "Productivity",
     "capabilities": [
@@ -34,7 +41,12 @@
       "用 $clothing-extraction 把模特上衣转成白底平铺商品图。",
       "用 $clothing-detail 为这件服装生成四张独立细节图。",
       "按 $font-reference-replica v3.0 执行，复刻参考图中的标题字体。",
-      "用 $font-reference-replica v3.0 重建这组文字，输出黑字透明底 PNG。"
+      "用 $font-reference-replica v3.0 重建这组文字，输出黑字透明底 PNG。",
+      "Use $design-context to establish or reuse a brand's visual identity, colors, typography, and audience context.",
+      "Use $graphic-design to create a distinctive branded graphic with deliberate composition and typography.",
+      "Use $poster-design to design a campaign poster or promotional flyer with a clear visual hierarchy.",
+      "Use $social-media-graphic to create a platform-specific social media graphic.",
+      "Use $design-taste to design, critique, and refine a web interface without generic AI styling."
     ]
   }
 }
