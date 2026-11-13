@@ -1,19 +1,19 @@
 ---
 name: font-reference-replica
 description: >
-  Ultra-strict reference typography reconstruction skill. Rebuilds glyph structure
-  from reference imagery by analyzing skeletons, stroke topology, terminals, joins,
-  width/height ratios, local deformation, spacing, outlines, texture, and effects.
-  Use when the user requires exact or near-pixel reproduction of lettering and forbids
-  similar-font substitution. Includes lightly connected Chinese lettering,
-  partial ligatures, interlocking strokes, shared sweeping terminals, and
-  intentional broken strokes mixed with connections, and inventive custom
-  strokes, loops, swashes, shared strokes and component transformations.
+  High-fidelity reference lettering reconstruction skill. Uses evidence-led intake,
+  expert workflow selection, glyph forensics, pixel reuse, vector contour or
+  variable-width stroke reconstruction, changed-text style transfer, transparent
+  export, measurable quality assurance, and local repair. Use when the user requires
+  strict reference matching and forbids similar-font substitution. Never claims
+  literal 100% identity for unseen glyphs or unverified source geometry. Supports
+  Chinese, Latin, connected lettering, custom strokes, material effects, and
+  editable vector deliverables when they can actually be produced.
 ---
 
 # $font-reference-replica
 
-Revision: 2.4.0
+Revision: 3.0.0
 
 ## Core objective
 
@@ -23,7 +23,34 @@ This skill does **not** treat the reference as merely a "font style".
 It treats each visible character as a **forensic glyph specimen**.
 
 
-## Mandatory style-extraction gate (Revision 2.4)
+## Revision 3.0 mandatory operating protocol
+
+Before executing any font-replica request, read and follow
+[execution-workflow-v3.md](references/execution-workflow-v3.md). This protocol is
+mandatory and governs intake, task diagnosis, reconstruction-method selection,
+execution order, quality assurance, repair, deliverables, and the completion report.
+
+Revision 3.0 preserves the detailed glyph-forensics, connected-lettering, and
+comparison capabilities from 2.4 while adding a complete evidence-led job workflow:
+
+1. Lock the exact target text and source-reference priority before drawing.
+2. Diagnose whether the job is pixel reuse, visible-glyph reuse, changed-text
+   reconstruction, unseen-glyph construction, effects reconstruction, or editable
+   vector production.
+3. Build a Reference Style Sheet and a visible / partially visible / unseen glyph
+   inventory.
+4. Choose the least speculative method supported by the source evidence.
+5. Reconstruct character identity and geometry before layout polish or material effects.
+6. Verify content, geometry, composition, transparency, and file format.
+7. Repair only failed glyphs or junctions while freezing accepted regions.
+8. Report which glyphs were traced/reused, reconstructed, or constructed/style-matched.
+
+Do not ask for optional information when sensible defaults are available. Ask one
+direct question only when an essential input is missing. Never claim a 100% match
+for an unseen glyph, an unreadable reference, or a result that has not been checked.
+
+
+## Mandatory style-extraction gate (introduced in Revision 2.4; retained in 3.0)
 
 Before drawing a changed phrase, create a compact **Reference Style Sheet** from the actual pixels. Never jump directly from a vague label such as “bold”, “cute”, “geometric” or “display” to a generated word.
 
@@ -811,7 +838,7 @@ When invoked, internally enforce:
 
 # User invocation template
 
-按 `$font-reference-replica` 执行。
+按 `$font-reference-replica v3.0` 执行。
 
 参考图：图1  
 目标文字：{TARGET_TEXT}
@@ -834,3 +861,14 @@ When invoked, internally enforce:
 **Font name is optional. Glyph geometry is mandatory.**
 
 **The reference image is the ground truth.**
+
+
+---
+
+# Revision 3.0 invocation and completion override
+
+Use the short invocation from [execution-workflow-v3.md](references/execution-workflow-v3.md)
+when the reference and target wording are obvious. For complex jobs, use its expanded
+intake template. The v3.0 completion report is mandatory: state the reconstruction
+method, glyph provenance, output format/transparency, checks actually performed,
+and any unresolved limitation. Never invent quantitative QA results.
