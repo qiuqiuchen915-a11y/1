@@ -1,6 +1,15 @@
-# font-reference-replica v2
+# font-reference-replica v3.0
 
 This version focuses on **glyph-structure reconstruction**, not simple font matching.
+
+## What changed in v3.0
+
+- Adds a mandatory evidence-led execution workflow from intake through delivery.
+- Adds task diagnosis and reconstruction-method selection (pixel reuse, tracing, stroke reconstruction, unseen-glyph construction, effects, and vector deliverables).
+- Adds a visible / partially visible / unseen glyph inventory and per-glyph provenance reporting.
+- Adds explicit defaults, source-resolution triage, layout inheritance, and transparent-export checks.
+- Adds local repair rules that freeze accepted glyphs and regions.
+- Adds a concise completion report and a strict rule against claiming unverified 100% fidelity.
 
 ## What changed in v2
 
@@ -108,3 +117,37 @@ geometry-first reconstruction rules and inspect local crops and effects separate
 The skill now requires a **Reference Style Sheet** before reconstructing new wording. It separates observed source features from reusable style rules and one-off glyph inventions, inherits the reference layout unless the user requests a change, and requires a two-pass process for unseen Chinese characters: preserve character identity/topology first, then transfer measured stroke and contour behavior.
 
 For bold, geometric-organic or expressive display lettering, follow [heavy-geometric-display.md](references/heavy-geometric-display.md). This guide emphasizes stroke-width ranges, terminals, curve tension, counters, intentional gaps/bridges, whole-word rhythm and transparent-PNG validation. It does not promise mathematical 100% reproduction for unseen characters; use “traced/reused” for source-visible forms and “constructed/style-matched” for inferred forms.
+
+
+## Revision 3.0 execution workflow
+
+The mandatory operating procedure is now documented in
+[`references/execution-workflow-v3.md`](references/execution-workflow-v3.md).
+It defines how to intake a request, diagnose the reconstruction task, choose a
+method, inventory glyph evidence, reconstruct in passes, run QA, repair locally,
+and report deliverables honestly.
+
+### Recommended invocation
+
+```text
+$font-reference-replica v3.0
+文案：11.7冬上新名单公示
+参考：图1
+输出：纯黑字，透明背景 PNG
+要求：尽可能 1:1 高还原；禁止相似字体替代；逐字质检。
+```
+
+For complex requests, specify primary/secondary references, whether the wording
+changes, layout constraints, output format, and hard prohibitions. If omitted,
+the skill uses sensible defaults and asks only when an essential input is missing.
+
+### Fidelity terminology
+
+- **Traced/reused**: directly taken from visible source glyph geometry or pixels.
+- **Reconstructed**: rebuilt from a sufficiently clear visible source glyph.
+- **Constructed/style-matched**: inferred for an unseen glyph from measured rules.
+- **Unverified**: not yet geometrically checked.
+
+Unseen characters cannot be guaranteed pixel-identical without the original font,
+vector/source file, or a reference containing those glyphs. Never label inferred
+characters as exact copies.
