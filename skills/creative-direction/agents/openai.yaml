@@ -1,0 +1,7 @@
+interface:
+  display_name: "Creative Direction"
+  short_description: "Turn brand strategy into a coherent visual identity and design system."
+  default_prompt: "Use $creative-direction to develop a coherent visual system for this brand."
+
+policy:
+  allow_implicit_invocation: true

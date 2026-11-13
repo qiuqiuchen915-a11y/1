@@ -1,0 +1,7 @@
+interface:
+  display_name: "Art Direction"
+  short_description: "Direct brand photography, illustration, icons, patterns, and textures."
+  default_prompt: "Use $art-direction to define and create on-brand imagery and visual assets."
+
+policy:
+  allow_implicit_invocation: true

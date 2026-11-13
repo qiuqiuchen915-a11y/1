@@ -1,0 +1,7 @@
+interface:
+  display_name: "Brand"
+  short_description: "Audit a brand and establish shared context for all design work."
+  default_prompt: "Use $brand to audit this brand and establish its design context."
+
+policy:
+  allow_implicit_invocation: true

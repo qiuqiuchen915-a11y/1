@@ -1,7 +1,7 @@
 {
   "name": "clothing-extraction",
-  "version": "1.5.0",
-  "description": "A visual production toolkit for fashion imagery, reference-matched typography, professional graphic design, and design-taste review.",
+  "version": "1.6.0",
+  "description": "A visual production toolkit for fashion imagery, reference-matched typography, professional graphic design, brand systems, campaign collateral, and design-taste review.",
   "author": {
     "name": "qiuqiuchen915-a11y",
     "url": "https://github.com/qiuqiuchen915-a11y"
@@ -23,13 +23,21 @@
     "poster-design",
     "social-media-graphics",
     "design-critique",
-    "visual-hierarchy"
+    "visual-hierarchy",
+    "brand-strategy",
+    "creative-direction",
+    "design-principles",
+    "collateral-design",
+    "logo-design",
+    "web-design",
+    "brand-audit",
+    "visual-identity"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Visual Production & Design Skills",
-    "shortDescription": "Fashion imagery, typography replication, graphic design, and visual critique.",
-    "longDescription": "A visual production collection covering fashion e-commerce imagery, garment details, high-fidelity lettering reconstruction, professional graphic design, campaign collateral, and frontend design-taste review.",
+    "shortDescription": "Fashion imagery, typography, brand strategy, collateral design, and visual critique.",
+    "longDescription": "A visual production collection covering fashion e-commerce imagery, garment details, high-fidelity lettering reconstruction, brand audits and strategy, design principles, creative and art direction, logo and web design, campaign collateral, and frontend design-taste review.",
     "developerName": "qiuqiuchen915-a11y",
     "category": "Productivity",
     "capabilities": [
@@ -46,7 +54,16 @@
       "Use $graphic-design to create a distinctive branded graphic with deliberate composition and typography.",
       "Use $poster-design to design a campaign poster or promotional flyer with a clear visual hierarchy.",
       "Use $social-media-graphic to create a platform-specific social media graphic.",
-      "Use $design-taste to design, critique, and refine a web interface without generic AI styling."
+      "Use $design-taste to design, critique, and refine a web interface without generic AI styling.",
+      "用 $brand 对 fabric pig. 做一次品牌视觉审计并建立品牌上下文。",
+      "用 $design-principles 诊断这张海报的视觉层级、构图、字体和留白问题。",
+      "用 $brand-strategy 为 fabric pig. 梳理品牌情绪定位与视觉概念。",
+      "用 $creative-direction 为 fabric pig. 制定一套连贯的视觉系统。",
+      "用 $art-direction 制定服饰摄影、插画、图标和纹理方向。",
+      "用 $logo-design 评估并优化这个品牌标志。",
+      "用 $collateral-design 设计这张高级感活动海报或代金券。",
+      "用 $web-design 设计并实现品牌官网落地页。",
+      "Use $motion-design to design purposeful UI motion and micro-interactions."
     ]
   }
 }

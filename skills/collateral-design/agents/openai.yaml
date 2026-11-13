@@ -1,0 +1,7 @@
+interface:
+  display_name: "Collateral Design"
+  short_description: "Design posters, social graphics, ads, decks, and print collateral."
+  default_prompt: "Use $collateral-design to design a polished campaign graphic or print piece."
+
+policy:
+  allow_implicit_invocation: true
