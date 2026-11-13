@@ -1,0 +1,21 @@
+{
+  "name": "fabric-pig-visual",
+  "interface": {
+    "displayName": "Fabric Pig Visual Skills"
+  },
+  "plugins": [
+    {
+      "name": "clothing-extraction",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/qiuqiuchen915-a11y/1",
+        "ref": "main"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
