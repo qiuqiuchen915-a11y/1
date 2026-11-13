@@ -1,0 +1,7 @@
+interface:
+  display_name: "Logo Design"
+  short_description: "Design and evaluate distinctive, appropriate, scalable brand marks."
+  default_prompt: "Use $logo-design to design or critique this logo in its brand context."
+
+policy:
+  allow_implicit_invocation: true

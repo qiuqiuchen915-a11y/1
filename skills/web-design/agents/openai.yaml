@@ -1,0 +1,7 @@
+interface:
+  display_name: "Web Design"
+  short_description: "Design and build conversion-focused websites from a defined brand system."
+  default_prompt: "Use $web-design to design and build a brand-aligned website."
+
+policy:
+  allow_implicit_invocation: true

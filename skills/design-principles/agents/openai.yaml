@@ -1,0 +1,7 @@
+interface:
+  display_name: "Design Principles"
+  short_description: "Evaluate visual hierarchy, composition, restraint, contrast, and craft."
+  default_prompt: "Use $design-principles to critique this design's hierarchy, composition, and craft."
+
+policy:
+  allow_implicit_invocation: true

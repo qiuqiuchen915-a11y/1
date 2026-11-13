@@ -1,0 +1,7 @@
+interface:
+  display_name: "Brand Strategy"
+  short_description: "Define a brand's emotional target, creative concepts, and visual strategy."
+  default_prompt: "Use $brand-strategy to define the brand's emotional target and visual strategy."
+
+policy:
+  allow_implicit_invocation: true
